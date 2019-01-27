@@ -9,11 +9,6 @@ use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
-  protected $client = new Client([
-      'base_uri' => 'https://jsonplaceholder.typicode.com/',
-
-      'timeout'  => 2.0,
-  ]);
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +16,13 @@ class HomeController extends Controller
      */
      public function index()
      {
+       $client = new Client([
+           'base_uri' => 'https://jsonplaceholder.typicode.com/',
 
+           'timeout'  => 2.0,
+       ]);
 
-       $request = $this->client->request('GET', 'todos');
+       $request = $client->request('GET', 'todos');
        dd(json_decode($request->getBody()->getContents()));
      }
 
@@ -56,7 +55,16 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+      $client = new Client([
+          'base_uri' => 'https://jsonplaceholder.typicode.com/',
+
+          'timeout'  => 2.0,
+      ]);
+
+      $request = $client->request('GET', 'todos/'.$id);
+      dd(json_decode($request->getBody()->getContents()));
+
+
     }
 
     /**
@@ -91,5 +99,17 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function titulo($id)
+    {
+      $client = new Client([
+          'base_uri' => 'https://jsonplaceholder.typicode.com/',
+
+          'timeout'  => 2.0,
+      ]);
+
+      $request = $client->request('GET', 'todos/'.$id);
+      dd(json_decode($request->getBody()->getContents())->title);
     }
 }

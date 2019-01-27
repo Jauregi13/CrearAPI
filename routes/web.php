@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home','HomeController@index')->name('home');
+Route::resource('home','HomeController')->only('index','show');
+Route::get('home/{id}/titulo','HomeController@titulo')->name('titulo');
